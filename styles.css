@@ -69,6 +69,24 @@ nav {
     z-index: 1001;
 }
 
+.menu-toggle .menu-icon,
+.menu-toggle .close-icon {
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle .close-icon {
+    display: none;
+}
+
+.menu-toggle.active .menu-icon {
+    display: none;
+}
+
+.menu-toggle.active .close-icon {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
@@ -361,6 +379,66 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+}
+
+/* Animaciones del menú burger */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--accent);
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.menu-toggle .menu-icon,
+.menu-toggle .close-icon {
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle .close-icon {
+    display: none;
+}
+
+.menu-toggle.active .menu-icon {
+    display: none;
+}
+
+.menu-toggle.active .close-icon {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+/* Animaciones de títulos principales */
+@keyframes titleFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--accent);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    opacity: 0;
+}
+
+.section-title.animate-on-scroll {
+    animation: titleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Ajuste específico para el título del hero */
+.hero-content h1.animate-on-scroll {
+    animation: titleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Footer */

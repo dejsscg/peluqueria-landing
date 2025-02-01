@@ -4,6 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
     const scrollTopBtn = document.querySelector('.scroll-top-button');
     const whatsappBtn = document.querySelector('.whatsapp-button');
+    const animatedTitles = document.querySelectorAll('.section-title.animate-on-scroll, .hero-content h1.animate-on-scroll');
+
+    // Función para manejar las animaciones de títulos
+    const handleTitleAnimations = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+        
+        animatedTitles.forEach(title => {
+            const elementTop = title.getBoundingClientRect().top;
+            if (elementTop < triggerBottom) {
+                title.classList.add('visible');
+            }
+        });
+    };
 
     // Manejar menú móvil
     menuToggle?.addEventListener('click', () => {
@@ -35,5 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
             top: 0,
             behavior: 'smooth'
         });
+    });
+
+    // Inicializar animaciones de títulos
+    setTimeout(handleTitleAnimations, 100); // Animar títulos visibles al cargar
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(handleTitleAnimations);
     });
 });
