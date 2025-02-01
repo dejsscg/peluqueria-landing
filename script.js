@@ -169,3 +169,61 @@ scrollTopButton.addEventListener('click', function() {
         behavior: 'smooth'
     });
 });
+
+// Animaciones de scroll y control de WhatsApp
+document.addEventListener('DOMContentLoaded', function() {
+    const whatsappButton = document.querySelector('.whatsapp-button');
+    const contactSection = document.querySelector('#contacto');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    // Función para manejar las animaciones al hacer scroll
+    function handleScrollAnimations() {
+        // Control del botón de WhatsApp
+        const contactRect = contactSection.getBoundingClientRect();
+        if (contactRect.top <= window.innerHeight && contactRect.bottom >= 0) {
+            whatsappButton.classList.add('hidden');
+        } else {
+            whatsappButton.classList.remove('hidden');
+        }
+
+        // Animación de las tarjetas de servicios
+        serviceCards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            if (cardRect.top <= window.innerHeight * 0.85) {
+                card.classList.add('visible');
+            }
+        });
+
+        // Animación de los items de la galería
+        galleryItems.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            if (itemRect.top <= window.innerHeight * 0.85) {
+                item.classList.add('visible');
+            }
+        });
+    }
+
+    // Observador de intersección para las animaciones
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    // Observar elementos
+    serviceCards.forEach(card => observer.observe(card));
+    galleryItems.forEach(item => observer.observe(item));
+
+    // Manejar el scroll para el botón de WhatsApp
+    window.addEventListener('scroll', () => {
+        handleScrollAnimations();
+    });
+
+    // Ejecutar una vez al cargar la página
+    handleScrollAnimations();
+});

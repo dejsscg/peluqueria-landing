@@ -133,7 +133,7 @@ nav {
 
 .hero-content h1 {
     font-family: 'Cinzel', serif;
-    font-size: 4.5rem;
+    font-size: 6rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -145,7 +145,7 @@ nav {
     content: "Hair Salon";
     display: block;
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     color: var(--accent-color);
     margin-top: 0.5rem;
 }
@@ -179,31 +179,29 @@ nav {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 60px;
-    height: 60px;
     background-color: #25D366;
     color: white;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
     z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
 }
 
 .whatsapp-button:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
-.whatsapp-button.visible {
-    opacity: 1;
-    visibility: visible;
+.whatsapp-button.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
 }
 
 .scroll-top-button {
@@ -302,6 +300,14 @@ section h2 {
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     transition: transform 0.3s;
     border: 1px solid var(--secondary-color);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .service-card:hover {
@@ -347,7 +353,13 @@ section h2 {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
-    animation: fadeIn 1s ease forwards;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.gallery-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .gallery-item:hover {
@@ -509,12 +521,12 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
+    .hero-content h1 {
+        font-size: 4rem;
     }
-    
-    .hero p {
-        font-size: 1.2rem;
+
+    .hero-content h1::after {
+        font-size: 2.5rem;
     }
     
     section {
