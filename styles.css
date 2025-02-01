@@ -1,11 +1,11 @@
 /* Variables y reset */
 :root {
-    --primary-color: #F8B195;     /* Rosa pastel */
-    --secondary-color: #F67280;   /* Rosa coral suave */
-    --accent-color: #C06C84;      /* Rosa antiguo */
-    --text-color: #6C5B7B;        /* Morado suave */
-    --light-bg: #FFF5F6;          /* Fondo rosa muy suave */
-    --background-color: #FFF5F6;
+    --primary-color: #ff69b4;
+    --secondary-color: #ffb6c1;
+    --accent-color: #ff1493;
+    --text-color: #333;
+    --light-bg: #fff5f8;
+    --background-color: #fff5f8;
 }
 
 * {
