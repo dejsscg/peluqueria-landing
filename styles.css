@@ -402,22 +402,6 @@ section {
     animation: titleFadeIn 1.5s ease-out forwards;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: var(--accent);
-    transition: width 0.3s ease;
-}
-
-.section-title:hover::after {
-    width: 150px;
-}
-
 /* Sección de contacto */
 .contact {
     text-align: center;
