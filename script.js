@@ -163,19 +163,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     
     function handleScrollAnimations() {
-        const triggerBottom = window.innerHeight * 0.85; // 85% de la altura de la ventana
+        const triggerBottom = window.innerHeight * 0.85;
 
         animatedElements.forEach((element) => {
             const elementTop = element.getBoundingClientRect().top;
             
             if (elementTop < triggerBottom) {
-                element.classList.add('visible');
+                if (!element.classList.contains('visible')) {
+                    element.classList.add('visible');
+                }
             }
         });
     }
 
-    // Ejecutar una vez al cargar la página
-    handleScrollAnimations();
+    // Ejecutar una vez al cargar la página para elementos ya visibles
+    setTimeout(handleScrollAnimations, 100);
 
     // Manejar el scroll con throttle para mejor rendimiento
     let isScrolling = false;
@@ -188,6 +190,26 @@ document.addEventListener('DOMContentLoaded', function() {
             isScrolling = true;
         }
     });
+
+    // Manejar el menú móvil
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer click en un enlace
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    }
 });
 
 // Resto del código...
