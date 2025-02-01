@@ -103,6 +103,8 @@ nav {
 
 .hero-content {
     max-width: 800px;
+    opacity: 0;
+    animation: titleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .hero-content h1 {
@@ -400,18 +402,7 @@ section {
     opacity: 0;
 }
 
-.section-title.animate-on-scroll,
-.hero-content h1.animate-on-scroll,
-.hero-content p.animate-on-scroll {
-    animation: titleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.hero-content p.animate-on-scroll {
-    animation-delay: 0.3s;
-}
-
-/* Ajuste específico para el título del hero */
-.hero-content h1.animate-on-scroll {
+.section-title.animate-on-scroll {
     animation: titleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
