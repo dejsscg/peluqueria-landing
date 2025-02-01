@@ -248,9 +248,6 @@ section {
     overflow: hidden;
     aspect-ratio: 4/3;
     min-height: 280px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gallery-item.animate-on-scroll {
