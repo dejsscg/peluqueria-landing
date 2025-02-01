@@ -102,10 +102,10 @@ async function handleIncomingMessage(from, message) {
                    "¿Te gustaría agendar una cita? ✨";
     } else if (message.includes('ubicacion') || message.includes('donde') || message.includes('direccion')) {
         response += "Nos encontramos en:\n\n" +
-                   "📍 [Tu dirección aquí]\n\n" +
+                   "📍 Av. Arequipa 123, Miraflores - Lima\n\n" +
                    "Referencias:\n" +
-                   "- Cerca de [referencia]\n" +
-                   "- A [X] cuadras de [lugar conocido]\n\n" +
+                   "- A 2 cuadras del Parque Kennedy\n" +
+                   "- Frente al Centro Comercial Miraflores\n\n" +
                    "¿Necesitas más indicaciones o prefieres agendar una cita? 💇‍♀️";
     } else {
         response += "¿Cómo puedo ayudarte hoy? 😊\n\n" +
