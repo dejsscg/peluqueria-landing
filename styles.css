@@ -184,22 +184,80 @@ section {
     line-height: 1.6;
 }
 
-/* Galería específica */
-.gallery .grid {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+/* Servicios */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-.gallery .card {
+.service-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--secondary);
+    transition: transform 0.3s;
+    aspect-ratio: 3/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    font-size: 3.5rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.service-card p {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Galería */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.gallery-item {
     aspect-ratio: 16/9;
-    padding: 0;
+    border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.gallery .card img {
+.gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
 }
 
 /* Botón de agenda */
@@ -230,6 +288,34 @@ section {
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
 }
 
+/* Botón de WhatsApp */
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 3rem;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    margin-top: 2rem;
+}
+
+.whatsapp-btn i {
+    font-size: 2rem;
+}
+
+.whatsapp-btn:hover {
+    background: #22c35e;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
 /* Services section */
 .services {
     background: var(--bg);
@@ -237,45 +323,6 @@ section {
 
 .services .section-title {
     color: var(--accent);
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.service-card {
-    background: white;
-    padding: 2rem;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    border: 1px solid var(--secondary);
-    transition: transform 0.3s;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-}
-
-.service-card i {
-    font-size: 2.5rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-}
-
-.service-card h3 {
-    color: var(--primary);
-    margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
-}
-
-.service-card p {
-    color: var(--text);
-    line-height: 1.6;
 }
 
 /* Gallery section */
@@ -497,18 +544,29 @@ footer {
         padding: 0 1rem;
     }
 
-    .gallery .grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
-    .card {
+    .service-card {
+        aspect-ratio: auto;
+        min-height: 250px;
         padding: 2rem;
     }
 
-    .btn {
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item {
+        aspect-ratio: 16/10;
+    }
+
+    .whatsapp-btn {
+        padding: 1.2rem 2.5rem;
         width: 90%;
         max-width: 300px;
+        font-size: 1.3rem;
     }
 }
