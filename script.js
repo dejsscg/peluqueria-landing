@@ -6,10 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollTopBtn = document.querySelector('.scroll-top-button');
     const whatsappBtn = document.querySelector('.whatsapp-button');
 
-    // Funciones
+    // Función para manejar las animaciones de scroll
+    const handleScrollAnimations = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+        
+        animatedElements.forEach((element, index) => {
+            const elementTop = element.getBoundingClientRect().top;
+            
+            if (elementTop < triggerBottom) {
+                // Añadir delay progresivo para elementos en la misma sección
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 150); // 150ms de delay entre cada elemento
+            }
+        });
+    };
+
+    // Función para manejar el scroll
     const handleScroll = () => {
         const scrolled = window.scrollY;
-        const triggerBottom = window.innerHeight * 0.85;
 
         // Mostrar/ocultar botones flotantes
         if (scrolled > 300) {
@@ -20,13 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
             whatsappBtn?.classList.add('hidden');
         }
 
-        // Animar elementos al hacer scroll
-        animatedElements.forEach(el => {
-            const elementTop = el.getBoundingClientRect().top;
-            if (elementTop < triggerBottom) {
-                el.classList.add('visible');
-            }
-        });
+        // Manejar animaciones
+        requestAnimationFrame(handleScrollAnimations);
     };
 
     // Event Listeners
@@ -46,9 +56,22 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Inicialización
-    setTimeout(handleScroll, 100);
-    window.addEventListener('scroll', () => {
-        requestAnimationFrame(handleScroll);
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
+
+    // Inicialización
+    setTimeout(handleScrollAnimations, 100); // Animar elementos visibles al cargar
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScrollAnimations);
 });
