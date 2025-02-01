@@ -266,6 +266,8 @@ nav {
     margin-bottom: 3rem;
     color: var(--accent-color);
     font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    opacity: 1;  /* Asegurar que sea visible */
 }
 
 .gallery-grid {

@@ -176,6 +176,11 @@ scrollTopButton.addEventListener('click', function() {
 // Animaciones de scroll
 document.addEventListener('DOMContentLoaded', function() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    
+    // Hacer todos los elementos visibles inicialmente
+    animatedElements.forEach(element => {
+        element.style.opacity = '1';
+    });
 
     function handleScrollAnimations() {
         const triggerBottom = window.innerHeight * 0.8;
