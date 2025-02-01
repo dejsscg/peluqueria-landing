@@ -1,35 +1,19 @@
-// Funcionalidad del menú burger
+// Menú móvil
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-    const menuIcon = document.querySelector('.menu-icon');
-    const closeIcon = document.querySelector('.close-icon');
 
-    function toggleMenu() {
+    menuToggle.addEventListener('click', function() {
         navLinks.classList.toggle('active');
-        menuIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
-    }
-
-    menuToggle.addEventListener('click', toggleMenu);
-
-    // Cerrar menú al hacer clic en un enlace
-    const links = document.querySelectorAll('.nav-links a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-        });
+        menuToggle.classList.toggle('active');
     });
 
-    // Cerrar menú al hacer scroll
-    window.addEventListener('scroll', () => {
-        if (navLinks.classList.contains('active')) {
+    // Cerrar menú al hacer click en un enlace
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
             navLinks.classList.remove('active');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-        }
+            menuToggle.classList.remove('active');
+        });
     });
 });
 
