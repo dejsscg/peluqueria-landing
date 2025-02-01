@@ -131,20 +131,28 @@ nav {
     max-width: 800px;
 }
 
-.hero-content h1,
-.hero-content p {
-    font-family: 'Dancing Script', cursive;
-}
-
 .hero-content h1 {
-    font-size: 4rem;
+    font-family: 'Cinzel', serif;
+    font-size: 4.5rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.hero-content h1::after {
+    content: "Hair Salon";
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-top: 0.5rem;
 }
 
 .hero-content p {
-    font-size: 2rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
     color: var(--text-color);
     margin-bottom: 2rem;
 }
@@ -312,25 +320,66 @@ section h2 {
 }
 
 /* Galería */
+.gallery {
+    padding: 4rem 2rem;
+    background-color: var(--light-bg);
+}
+
+.gallery h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--accent-color);
+    font-family: 'Playfair Display', serif;
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
 }
 
 .gallery-item img {
     width: 100%;
     height: 300px;
     object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
-.gallery-item img:hover {
-    transform: scale(1.05);
+.gallery-item:hover img {
+    transform: scale(1.1);
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0.2s; }
+.gallery-item:nth-child(2) { animation-delay: 0.4s; }
+.gallery-item:nth-child(3) { animation-delay: 0.6s; }
+.gallery-item:nth-child(4) { animation-delay: 0.8s; }
 
 /* Contacto */
 .contact {
