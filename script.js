@@ -159,29 +159,26 @@ scrollTopButton.addEventListener('click', function() {
 
 // Animaciones de scroll
 document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    
-    // Hacer todos los elementos visibles inicialmente
-    animatedElements.forEach(element => {
-        element.style.opacity = '1';
-    });
+    // Animaciones del título principal
+    const heroTitle = document.querySelector('.hero-content h1');
+    const heroSubtitle = document.querySelector('.hero-content p');
 
-    function handleScrollAnimations() {
-        const triggerBottom = window.innerHeight * 0.8;
-
-        animatedElements.forEach((element, index) => {
-            const elementTop = element.getBoundingClientRect().top;
-            if (elementTop < triggerBottom) {
-                setTimeout(() => {
-                    element.classList.add('visible');
-                }, index * 100);
-            }
-        });
+    // Hacer visible el título y subtítulo con animación
+    if (heroTitle) {
+        heroTitle.style.opacity = '0';
+        setTimeout(() => {
+            heroTitle.style.opacity = '1';
+            heroTitle.style.animation = 'fadeInUp 1s ease-out forwards';
+        }, 100);
     }
 
-    // Ejecutar una vez al cargar la página
-    handleScrollAnimations();
+    if (heroSubtitle) {
+        heroSubtitle.style.opacity = '0';
+        setTimeout(() => {
+            heroSubtitle.style.opacity = '1';
+            heroSubtitle.style.animation = 'fadeInUp 1s ease-out forwards';
+        }, 600);
+    }
 
-    // Manejar el scroll
-    window.addEventListener('scroll', handleScrollAnimations);
+    // Resto del código...
 });
