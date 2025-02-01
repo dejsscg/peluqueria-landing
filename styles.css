@@ -254,7 +254,31 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        max-width: 98%;
+        gap: 2.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .gallery-item {
+        width: 100%;
+        min-height: 400px;
+        aspect-ratio: 3/4;
+    }
+
+    .gallery-item img {
+        object-position: center top;
+    }
 }
 
 /* Botón de agenda */
