@@ -1,5 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
+const OpenAI = require('openai');
 const app = express();
 app.use(express.json());
 
@@ -7,11 +9,124 @@ app.use(express.json());
 const config = {
     whatsappApi: {
         version: 'v17.0',
-        phoneNumberId: '557696057433362',
-        token: 'EAAcx0EIL5uIBO3kNPwK0iKpPP5xEUx9K6E4qZByOqf9TkMdPAoA4dZBorBZBYZAzZCW4CXnXxfU1ZBAtEsgIsIHbisLuSdWBuNFPOzyTlDzSx8ZBdF3ZCdSTF9fvym7IHQ1rleRXBqoWQbEFTHcPQ7vAZBUH29fZCZC1yZAbZBQZAqEPo8bdAdWg4K2HY2iEy0iFksWLuWWi616eX465SuGU4uucM7AnYnZAIgZD'
+        phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID,
+        token: process.env.WHATSAPP_TOKEN
     },
-    verifyToken: 'PELUQUERIA123'
+    verifyToken: process.env.VERIFY_TOKEN,
+    openai: {
+        apiKey: process.env.OPENAI_API_KEY
+    }
 };
+
+// Inicializar OpenAI
+const openai = new OpenAI({
+    apiKey: config.openai.apiKey
+});
+
+// Sistema de contexto para OpenAI
+const SYSTEM_PROMPT = `Eres el asistente virtual de Elegance Hair Salon, una peluquería exclusiva en Miraflores, Lima.
+Tu trabajo es ayudar a los clientes con:
+1. Agendar citas (cortes, tintes, peinados, tratamientos)
+2. Informar sobre precios
+3. Proporcionar horarios de atención
+4. Dar la ubicación del local
+
+Horarios:
+- Lunes a Sábado: 9:00 AM - 7:00 PM
+- Domingo: 10:00 AM - 4:00 PM
+
+Precios:
+- Corte de cabello: desde $30
+- Tinte: desde $50
+- Peinado: desde $40
+- Tratamientos: desde $45
+
+Ubicación:
+Av. Arequipa 123, Miraflores - Lima
+(A 2 cuadras del Parque Kennedy, frente al Centro Comercial Miraflores)
+
+Reglas importantes:
+1. SOLO responde preguntas relacionadas con la peluquería
+2. Si la pregunta no está relacionada con la peluquería, responde amablemente que solo puedes ayudar con temas del salón
+3. Mantén un tono amigable y profesional
+4. Usa emojis ocasionalmente para dar calidez
+5. Sé conciso en tus respuestas`;
+
+// Función para obtener respuesta de OpenAI
+async function getAIResponse(userMessage) {
+    try {
+        const completion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                { role: "system", content: SYSTEM_PROMPT },
+                { role: "user", content: userMessage }
+            ],
+            max_tokens: 200,
+            temperature: 0.7
+        });
+
+        return completion.choices[0].message.content;
+    } catch (error) {
+        console.error('Error con OpenAI:', error);
+        return getFallbackResponse(userMessage);
+    }
+}
+
+// Respuesta de respaldo en caso de error con OpenAI
+function getFallbackResponse(message) {
+    message = message.toLowerCase();
+    if (message.includes('cita') || message.includes('reservar') || message.includes('agendar')) {
+        return "Para agendar tu cita, necesito los siguientes datos:\n\n" +
+               "1️⃣ ¿Qué servicio te interesa?\n" +
+               "2️⃣ ¿Qué día prefieres?\n" +
+               "3️⃣ ¿Qué horario te conviene más?\n\n" +
+               "Por favor, proporciona estos detalles y te confirmaré la disponibilidad. 📅";
+    } else if (message.includes('precio') || message.includes('costo') || message.includes('tarifa')) {
+        return "Nuestros precios son los siguientes:\n\n" +
+               "💇‍♀️ Corte de cabello: desde $30\n" +
+               "🎨 Tinte: desde $50\n" +
+               "👰 Peinado: desde $40\n" +
+               "💆‍♀️ Tratamientos: desde $45\n\n" +
+               "¿Te gustaría agendar una cita para alguno de estos servicios? 😊";
+    } else if (message.includes('horario') || message.includes('atienden') || message.includes('abierto')) {
+        return "Nuestro horario de atención es:\n\n" +
+               "📅 Lunes a Sábado:\n" +
+               "   🕐 9:00 AM - 7:00 PM\n\n" +
+               "📅 Domingo:\n" +
+               "   🕐 10:00 AM - 4:00 PM\n\n" +
+               "¿Te gustaría agendar una cita? ✨";
+    } else if (message.includes('ubicacion') || message.includes('donde') || message.includes('direccion')) {
+        return "Nos encontramos en:\n\n" +
+               "📍 Av. Arequipa 123, Miraflores - Lima\n\n" +
+               "Referencias:\n" +
+               "- A 2 cuadras del Parque Kennedy\n" +
+               "- Frente al Centro Comercial Miraflores\n\n" +
+               "¿Necesitas más indicaciones o prefieres agendar una cita? 💇‍♀️";
+    } else {
+        return "¿Cómo puedo ayudarte hoy? 😊\n\n" +
+               "1️⃣ Agendar una cita\n" +
+               "2️⃣ Consultar precios\n" +
+               "3️⃣ Ver horarios de atención\n" +
+               "4️⃣ Conocer nuestra ubicación\n\n" +
+               "Solo dime qué opción te interesa o escribe tu pregunta. 💫";
+    }
+}
+
+// Función para manejar los mensajes entrantes
+async function handleIncomingMessage(from, message) {
+    console.log(`Mensaje recibido de ${from}: ${message}`);
+    
+    try {
+        // Intentar obtener respuesta de OpenAI
+        const response = await getAIResponse(message);
+        await sendWhatsAppMessage(from, response);
+    } catch (error) {
+        console.error('Error al procesar mensaje:', error);
+        // Usar respuesta de respaldo en caso de error
+        const fallbackResponse = getFallbackResponse(message);
+        await sendWhatsAppMessage(from, fallbackResponse);
+    }
+}
 
 // Función para enviar mensajes usando la API de WhatsApp
 async function sendWhatsAppMessage(to, message) {
@@ -38,85 +153,6 @@ async function sendWhatsAppMessage(to, message) {
         console.error('Error al enviar mensaje:', error);
         throw error;
     }
-}
-
-// Función para enviar mensaje de plantilla
-async function sendTemplateMessage(to, templateName, language = "es") {
-    try {
-        const url = `https://graph.facebook.com/${config.whatsappApi.version}/${config.whatsappApi.phoneNumberId}/messages`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${config.whatsappApi.token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                messaging_product: "whatsapp",
-                to: to,
-                type: "template",
-                template: {
-                    name: templateName,
-                    language: {
-                        code: language
-                    }
-                }
-            })
-        });
-        
-        const data = await response.json();
-        console.log('Plantilla enviada:', data);
-        return data;
-    } catch (error) {
-        console.error('Error al enviar plantilla:', error);
-        throw error;
-    }
-}
-
-// Función para manejar los mensajes entrantes
-async function handleIncomingMessage(from, message) {
-    console.log(`Mensaje recibido de ${from}: ${message}`);
-    
-    let response = "¡Bienvenido/a a Elegance Hair Salon! 💇‍♀️✨\n\n";
-    
-    // Respuestas automáticas basadas en palabras clave
-    message = message.toLowerCase();
-    if (message.includes('cita') || message.includes('reservar') || message.includes('agendar')) {
-        response += "Para agendar tu cita, necesito los siguientes datos:\n\n" +
-                   "1️⃣ ¿Qué servicio te interesa?\n" +
-                   "2️⃣ ¿Qué día prefieres?\n" +
-                   "3️⃣ ¿Qué horario te conviene más?\n\n" +
-                   "Por favor, proporciona estos detalles y te confirmaré la disponibilidad. 📅";
-    } else if (message.includes('precio') || message.includes('costo') || message.includes('tarifa')) {
-        response += "Nuestros precios son los siguientes:\n\n" +
-                   "💇‍♀️ Corte de cabello: desde $30\n" +
-                   "🎨 Tinte: desde $50\n" +
-                   "👰 Peinado: desde $40\n" +
-                   "💆‍♀️ Tratamientos: desde $45\n\n" +
-                   "¿Te gustaría agendar una cita para alguno de estos servicios? 😊";
-    } else if (message.includes('horario') || message.includes('atienden') || message.includes('abierto')) {
-        response += "Nuestro horario de atención es:\n\n" +
-                   "📅 Lunes a Sábado:\n" +
-                   "   🕐 9:00 AM - 7:00 PM\n\n" +
-                   "📅 Domingo:\n" +
-                   "   🕐 10:00 AM - 4:00 PM\n\n" +
-                   "¿Te gustaría agendar una cita? ✨";
-    } else if (message.includes('ubicacion') || message.includes('donde') || message.includes('direccion')) {
-        response += "Nos encontramos en:\n\n" +
-                   "📍 Av. Arequipa 123, Miraflores - Lima\n\n" +
-                   "Referencias:\n" +
-                   "- A 2 cuadras del Parque Kennedy\n" +
-                   "- Frente al Centro Comercial Miraflores\n\n" +
-                   "¿Necesitas más indicaciones o prefieres agendar una cita? 💇‍♀️";
-    } else {
-        response += "¿Cómo puedo ayudarte hoy? 😊\n\n" +
-                   "1️⃣ Agendar una cita\n" +
-                   "2️⃣ Consultar precios\n" +
-                   "3️⃣ Ver horarios de atención\n" +
-                   "4️⃣ Conocer nuestra ubicación\n\n" +
-                   "Solo dime qué opción te interesa o escribe tu pregunta. 💫";
-    }
-    
-    await sendWhatsAppMessage(from, response);
 }
 
 // Webhook para Meta
