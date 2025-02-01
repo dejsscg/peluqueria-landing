@@ -50,9 +50,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Función para manejar la visibilidad del botón flotante de WhatsApp
+    function handleWhatsAppButtonVisibility() {
+        const floatingWhatsApp = document.getElementById('floating-whatsapp');
+        const scheduleButton = document.getElementById('schedule-button');
+        const scheduleRect = scheduleButton.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Si el botón de agendar está visible en la pantalla (o cerca), ocultar el botón flotante
+        if (scheduleRect.top < windowHeight + 100 && scheduleRect.bottom > -100) {
+            floatingWhatsApp.style.opacity = '0';
+            floatingWhatsApp.style.visibility = 'hidden';
+        } else {
+            floatingWhatsApp.style.opacity = '1';
+            floatingWhatsApp.style.visibility = 'visible';
+        }
+    }
+
     // Inicializar animaciones
     handleAnimations();
     window.addEventListener('scroll', () => {
         requestAnimationFrame(handleAnimations);
+        handleWhatsAppButtonVisibility();
     });
 });
