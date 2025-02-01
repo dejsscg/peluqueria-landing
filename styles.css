@@ -488,11 +488,21 @@ footer {
     justify-content: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     z-index: 1000;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.whatsapp-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
 }
 
 .whatsapp-button i {
     font-size: 2rem;
+    line-height: 1;
+    width: auto;
+    height: auto;
+    margin: 0;
 }
 
 .whatsapp-button.hidden {
