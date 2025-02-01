@@ -176,11 +176,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactSection = document.querySelector('#contacto');
     const serviceCards = document.querySelectorAll('.service-card');
     const galleryItems = document.querySelectorAll('.gallery-item');
+    const heroContent = document.querySelector('.hero-content');
 
     // Agregar clase animate después de que la página haya cargado
     setTimeout(() => {
         serviceCards.forEach(card => card.classList.add('animate'));
         galleryItems.forEach(item => item.classList.add('animate'));
+        // Activar animación del hero content
+        heroContent.classList.add('visible');
     }, 100);
 
     // Función para manejar las animaciones al hacer scroll
@@ -191,6 +194,14 @@ document.addEventListener('DOMContentLoaded', function() {
             whatsappButton.classList.add('hidden');
         } else {
             whatsappButton.classList.remove('hidden');
+        }
+
+        // Animación del hero content
+        const heroRect = heroContent.getBoundingClientRect();
+        if (heroRect.top <= window.innerHeight * 0.85 && heroRect.bottom >= 0) {
+            heroContent.classList.add('visible');
+        } else {
+            heroContent.classList.remove('visible');
         }
 
         // Animación de las tarjetas de servicios
