@@ -5,20 +5,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuIcon = document.querySelector('.menu-icon');
     const closeIcon = document.querySelector('.close-icon');
 
-    menuToggle.addEventListener('click', function() {
+    function toggleMenu() {
         navLinks.classList.toggle('active');
-        menuIcon.style.display = navLinks.classList.contains('active') ? 'none' : 'block';
-        closeIcon.style.display = navLinks.classList.contains('active') ? 'block' : 'none';
-    });
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+    }
 
-    // Cerrar el menú al hacer clic en un enlace
-    document.querySelectorAll('.nav-links a').forEach(link => {
+    menuToggle.addEventListener('click', toggleMenu);
+
+    // Cerrar menú al hacer clic en un enlace
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
-            menuIcon.style.display = 'block';
-            closeIcon.style.display = 'none';
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
         });
     });
+
+    // Cerrar menú al hacer scroll
+    window.addEventListener('scroll', () => {
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }
+    });
+});
+
+// Control del botón de WhatsApp
+document.addEventListener('DOMContentLoaded', function() {
+    const whatsappButton = document.querySelector('.whatsapp-button');
+    const contactSection = document.querySelector('#contacto');
+
+    function handleWhatsappButton() {
+        const contactRect = contactSection.getBoundingClientRect();
+        if (contactRect.top <= window.innerHeight && contactRect.bottom >= 0) {
+            whatsappButton.classList.add('hidden');
+        } else {
+            whatsappButton.classList.remove('hidden');
+        }
+    }
+
+    // Manejar el scroll para el botón de WhatsApp
+    window.addEventListener('scroll', handleWhatsappButton);
+    
+    // Ejecutar una vez al cargar la página
+    handleWhatsappButton();
 });
 
 // Smooth scrolling para los enlaces de navegación
@@ -101,36 +134,6 @@ form.addEventListener('submit', async function(e) {
     }
 });
 
-// Menú hamburguesa
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-const menuIcon = document.querySelector('.menu-icon');
-const closeIcon = document.querySelector('.close-icon');
-
-menuToggle.addEventListener('click', () => {
-    console.log('Botón de menú clicado');
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-    console.log('Estado de navLinks:', navLinks.classList.contains('active')); // Log para verificar el estado
-    if (navLinks.classList.contains('active')) {
-        menuIcon.style.display = 'none';
-        closeIcon.style.display = 'block';
-    } else {
-        menuIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
-    }
-});
-
-// Cerrar menú al hacer clic en un enlace
-navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
-        menuIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
-    });
-});
-
 // Botones flotantes
 const whatsappButton = document.querySelector('.whatsapp-button');
 const scrollTopButton = document.querySelector('.scroll-top-button');
@@ -168,37 +171,4 @@ scrollTopButton.addEventListener('click', function() {
         top: 0,
         behavior: 'smooth'
     });
-});
-
-// Animaciones de scroll
-document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    const whatsappButton = document.querySelector('.whatsapp-button');
-    const contactSection = document.querySelector('#contacto');
-
-    function handleScrollAnimations() {
-        // Control del botón de WhatsApp
-        const contactRect = contactSection.getBoundingClientRect();
-        if (contactRect.top <= window.innerHeight && contactRect.bottom >= 0) {
-            whatsappButton.classList.add('hidden');
-        } else {
-            whatsappButton.classList.remove('hidden');
-        }
-
-        // Animación de elementos al hacer scroll
-        animatedElements.forEach((element, index) => {
-            const elementRect = element.getBoundingClientRect();
-            if (elementRect.top <= window.innerHeight * 0.85) {
-                setTimeout(() => {
-                    element.classList.add('visible');
-                }, index * 150); // Retraso secuencial
-            }
-        });
-    }
-
-    // Ejecutar una vez al cargar la página
-    handleScrollAnimations();
-
-    // Manejar el scroll
-    window.addEventListener('scroll', handleScrollAnimations);
 });

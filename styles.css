@@ -130,8 +130,10 @@ nav {
 
 .hero-content {
     max-width: 800px;
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .hero-content h1 {
@@ -140,8 +142,10 @@ nav {
     color: var(--primary-color);
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .hero-content h1::after {
@@ -158,20 +162,25 @@ nav {
     font-size: 2.2rem;
     color: var(--text-color);
     margin-bottom: 2rem;
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 /* Animaciones para secciones */
 .section-animate {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .section-animate.visible {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 /* Services section */
@@ -185,8 +194,10 @@ nav {
     margin-bottom: 3rem;
     color: var(--accent-color);
     font-family: 'Playfair Display', serif;
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .services-grid {
@@ -204,9 +215,10 @@ nav {
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     border: 1px solid var(--secondary-color);
-    opacity: 1;
-    transform: none;
-    transition: transform 0.3s ease;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .service-card:hover {
@@ -229,29 +241,6 @@ nav {
 .service-card p {
     color: var(--text-color);
     line-height: 1.6;
-}
-
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Gallery section */
@@ -281,7 +270,10 @@ nav {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     background-color: white;
-    display: block;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
 }
 
 .gallery-item img {
@@ -294,12 +286,6 @@ nav {
 
 .gallery-item:hover img {
     transform: scale(1.1);
-}
-
-.gallery-item {
-    opacity: 1;
-    transform: none;
-    transition: transform 0.3s ease;
 }
 
 .gallery-item:hover {
