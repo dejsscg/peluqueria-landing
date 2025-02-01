@@ -159,26 +159,35 @@ scrollTopButton.addEventListener('click', function() {
 
 // Animaciones de scroll
 document.addEventListener('DOMContentLoaded', function() {
-    // Animaciones del título principal
-    const heroTitle = document.querySelector('.hero-content h1');
-    const heroSubtitle = document.querySelector('.hero-content p');
+    // Elementos para animar al hacer scroll
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    
+    function handleScrollAnimations() {
+        const triggerBottom = window.innerHeight * 0.85; // 85% de la altura de la ventana
 
-    // Hacer visible el título y subtítulo con animación
-    if (heroTitle) {
-        heroTitle.style.opacity = '0';
-        setTimeout(() => {
-            heroTitle.style.opacity = '1';
-            heroTitle.style.animation = 'fadeInUp 1s ease-out forwards';
-        }, 100);
+        animatedElements.forEach((element) => {
+            const elementTop = element.getBoundingClientRect().top;
+            
+            if (elementTop < triggerBottom) {
+                element.classList.add('visible');
+            }
+        });
     }
 
-    if (heroSubtitle) {
-        heroSubtitle.style.opacity = '0';
-        setTimeout(() => {
-            heroSubtitle.style.opacity = '1';
-            heroSubtitle.style.animation = 'fadeInUp 1s ease-out forwards';
-        }, 600);
-    }
+    // Ejecutar una vez al cargar la página
+    handleScrollAnimations();
 
-    // Resto del código...
+    // Manejar el scroll con throttle para mejor rendimiento
+    let isScrolling = false;
+    window.addEventListener('scroll', function() {
+        if (!isScrolling) {
+            window.requestAnimationFrame(function() {
+                handleScrollAnimations();
+                isScrolling = false;
+            });
+            isScrolling = true;
+        }
+    });
 });
+
+// Resto del código...
