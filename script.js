@@ -176,15 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactSection = document.querySelector('#contacto');
     const serviceCards = document.querySelectorAll('.service-card');
     const galleryItems = document.querySelectorAll('.gallery-item');
-    const heroContent = document.querySelector('.hero-content');
-
-    // Agregar clase animate después de que la página haya cargado
-    setTimeout(() => {
-        serviceCards.forEach(card => card.classList.add('animate'));
-        galleryItems.forEach(item => item.classList.add('animate'));
-        // Activar animación del hero content
-        heroContent.classList.add('visible');
-    }, 100);
+    const sectionAnimateElements = document.querySelectorAll('.section-animate');
 
     // Función para manejar las animaciones al hacer scroll
     function handleScrollAnimations() {
@@ -196,27 +188,31 @@ document.addEventListener('DOMContentLoaded', function() {
             whatsappButton.classList.remove('hidden');
         }
 
-        // Animación del hero content
-        const heroRect = heroContent.getBoundingClientRect();
-        if (heroRect.top <= window.innerHeight * 0.85 && heroRect.bottom >= 0) {
-            heroContent.classList.add('visible');
-        } else {
-            heroContent.classList.remove('visible');
-        }
+        // Animación de elementos con clase section-animate
+        sectionAnimateElements.forEach(element => {
+            const elementRect = element.getBoundingClientRect();
+            if (elementRect.top <= window.innerHeight * 0.85) {
+                element.classList.add('visible');
+            }
+        });
 
         // Animación de las tarjetas de servicios
-        serviceCards.forEach(card => {
+        serviceCards.forEach((card, index) => {
             const cardRect = card.getBoundingClientRect();
             if (cardRect.top <= window.innerHeight * 0.85) {
-                card.classList.add('visible');
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 200); // Retraso secuencial para cada tarjeta
             }
         });
 
         // Animación de los items de la galería
-        galleryItems.forEach(item => {
+        galleryItems.forEach((item, index) => {
             const itemRect = item.getBoundingClientRect();
             if (itemRect.top <= window.innerHeight * 0.85) {
-                item.classList.add('visible');
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 200); // Retraso secuencial para cada item
             }
         });
     }
@@ -235,8 +231,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Observar elementos
     serviceCards.forEach(card => observer.observe(card));
     galleryItems.forEach(item => observer.observe(item));
+    sectionAnimateElements.forEach(element => observer.observe(element));
 
-    // Manejar el scroll para el botón de WhatsApp
+    // Manejar el scroll para el botón de WhatsApp y animaciones
     window.addEventListener('scroll', () => {
         handleScrollAnimations();
     });
