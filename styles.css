@@ -406,7 +406,7 @@ section {
     transform: rotate(180deg);
 }
 
-/* Animaciones de títulos principales */
+/* Animaciones de títulos y textos */
 @keyframes titleFadeIn {
     0% {
         opacity: 0;
@@ -427,8 +427,14 @@ section {
     opacity: 0;
 }
 
-.section-title.animate-on-scroll {
+.section-title.animate-on-scroll,
+.hero-content h1.animate-on-scroll,
+.hero-content p.animate-on-scroll {
     animation: titleFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.hero-content p.animate-on-scroll {
+    animation-delay: 0.3s;
 }
 
 /* Ajuste específico para el título del hero */
@@ -536,20 +542,34 @@ footer {
     .services-grid {
         grid-template-columns: 1fr;
         padding: 0 1rem;
+        gap: 2rem;
     }
 
     .service-card {
-        min-height: 250px;
-        padding: 2rem;
+        min-height: 350px;
+        padding: 2.5rem;
+    }
+
+    .service-card i {
+        font-size: 4rem;
+    }
+
+    .service-card h3 {
+        font-size: 2rem;
+    }
+
+    .service-card p {
+        font-size: 1.3rem;
     }
 
     .gallery-grid {
         grid-template-columns: 1fr;
         padding: 0 1rem;
+        gap: 2rem;
     }
 
     .gallery-item {
-        min-height: 300px;
+        min-height: 450px;
     }
 
     .whatsapp-btn {
