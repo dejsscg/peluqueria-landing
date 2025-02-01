@@ -177,6 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const serviceCards = document.querySelectorAll('.service-card');
     const galleryItems = document.querySelectorAll('.gallery-item');
 
+    // Agregar clase animate después de que la página haya cargado
+    setTimeout(() => {
+        serviceCards.forEach(card => card.classList.add('animate'));
+        galleryItems.forEach(item => item.classList.add('animate'));
+    }, 100);
+
     // Función para manejar las animaciones al hacer scroll
     function handleScrollAnimations() {
         // Control del botón de WhatsApp
