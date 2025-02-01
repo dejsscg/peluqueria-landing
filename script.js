@@ -4,29 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
     const scrollTopBtn = document.querySelector('.scroll-top-button');
     const whatsappBtn = document.querySelector('.whatsapp-button');
-    const animatedTitles = document.querySelectorAll('.section-title.animate-on-scroll, .hero-content h1.animate-on-scroll');
-    const serviceBoxes = document.querySelectorAll('.service-box.animate-on-scroll');
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-    // Función para manejar las animaciones de títulos
-    const handleTitleAnimations = () => {
-        const triggerBottom = window.innerHeight * 0.85;
-        
-        animatedTitles.forEach(title => {
-            const elementTop = title.getBoundingClientRect().top;
-            if (elementTop < triggerBottom) {
-                title.classList.add('visible');
-            }
-        });
-    };
-
-    // Función para manejar las animaciones de cajas de servicios
-    const handleServiceBoxAnimations = () => {
+    // Función para manejar las animaciones
+    const handleAnimations = () => {
         const triggerBottom = window.innerHeight * 0.8;
         
-        serviceBoxes.forEach(box => {
-            const elementTop = box.getBoundingClientRect().top;
+        animatedElements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
             if (elementTop < triggerBottom) {
-                box.classList.add('visible');
+                element.classList.add('visible');
             }
         });
     };
@@ -64,10 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Inicializar animaciones
-    setTimeout(handleTitleAnimations, 100); // Animar títulos visibles al cargar
-    setTimeout(handleServiceBoxAnimations, 100); // Animar cajas de servicios visibles al cargar
+    handleAnimations();
     window.addEventListener('scroll', () => {
-        requestAnimationFrame(handleTitleAnimations);
-        requestAnimationFrame(handleServiceBoxAnimations);
+        requestAnimationFrame(handleAnimations);
     });
 });
