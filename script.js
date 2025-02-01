@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollTopBtn = document.querySelector('.scroll-top-button');
     const whatsappBtn = document.querySelector('.whatsapp-button');
     const animatedTitles = document.querySelectorAll('.section-title.animate-on-scroll, .hero-content h1.animate-on-scroll');
+    const serviceBoxes = document.querySelectorAll('.service-box.animate-on-scroll');
 
     // Función para manejar las animaciones de títulos
     const handleTitleAnimations = () => {
@@ -14,6 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const elementTop = title.getBoundingClientRect().top;
             if (elementTop < triggerBottom) {
                 title.classList.add('visible');
+            }
+        });
+    };
+
+    // Función para manejar las animaciones de cajas de servicios
+    const handleServiceBoxAnimations = () => {
+        const triggerBottom = window.innerHeight * 0.8;
+        
+        serviceBoxes.forEach(box => {
+            const elementTop = box.getBoundingClientRect().top;
+            if (elementTop < triggerBottom) {
+                box.classList.add('visible');
             }
         });
     };
@@ -50,9 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Inicializar animaciones de títulos
+    // Inicializar animaciones
     setTimeout(handleTitleAnimations, 100); // Animar títulos visibles al cargar
+    setTimeout(handleServiceBoxAnimations, 100); // Animar cajas de servicios visibles al cargar
     window.addEventListener('scroll', () => {
         requestAnimationFrame(handleTitleAnimations);
+        requestAnimationFrame(handleServiceBoxAnimations);
     });
 });
