@@ -216,20 +216,48 @@ section {
 .service-card.animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
 
 .service-card i {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     color: var(--accent);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .service-card h3 {
     color: var(--primary);
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .service-card p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 95%;
+        gap: 2rem;
+    }
+
+    .service-card {
+        min-height: 280px;
+        padding: 2rem 1.5rem;
+        width: 100%;
+    }
+
+    .service-card i {
+        font-size: 3rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.6rem;
+    }
+
+    .service-card p {
+        font-size: 1.1rem;
+    }
 }
 
 /* Galería */
@@ -579,15 +607,15 @@ footer {
     }
 
     .service-card i {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .service-card h3 {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
 
     .service-card p {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 
     .gallery-grid {
