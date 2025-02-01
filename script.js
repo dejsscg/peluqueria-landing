@@ -42,13 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Scroll al inicio
-    scrollTopBtn?.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    // Botón de scroll
+    const scrollButton = document.querySelector('.scroll-top-button');
+    if (scrollButton) {
+        window.addEventListener('scroll', () => {
+            // Calcular la posición del scroll en relación al final de la página
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const footerThreshold = documentHeight - windowHeight - 300; // 300px antes del final
+
+            if (scrollPosition > footerThreshold) {
+                scrollButton.style.display = 'flex';
+            } else {
+                scrollButton.style.display = 'none';
+            }
         });
-    });
+
+        scrollButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 
     // Función para manejar la visibilidad del botón flotante de WhatsApp
     function handleWhatsAppButtonVisibility() {
