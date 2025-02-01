@@ -199,39 +199,31 @@ section {
     justify-content: center;
 }
 
-.service-card.animate-on-scroll {
+/* Animaciones servicios y galería */
+.service-card.animate-on-scroll,
+.gallery-item.animate-on-scroll {
     opacity: 0;
     transform: translateY(40px);
-    transition: all 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
 }
 
-.service-card.animate-on-scroll.visible {
+.service-card.animate-on-scroll.visible,
+.gallery-item.animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.service-card.animate-on-scroll:nth-child(1) { transition-delay: 0.2s; }
-.service-card.animate-on-scroll:nth-child(2) { transition-delay: 0.4s; }
-.service-card.animate-on-scroll:nth-child(3) { transition-delay: 0.6s; }
-.service-card.animate-on-scroll:nth-child(4) { transition-delay: 0.8s; }
+/* Delays secuenciales */
+.service-card:nth-child(1) { transition-delay: 0s; }
+.service-card:nth-child(2) { transition-delay: 0.1s; }
+.service-card:nth-child(3) { transition-delay: 0.2s; }
+.service-card:nth-child(4) { transition-delay: 0.3s; }
 
-.service-card i {
-    font-size: 2.8rem;
-    color: var(--accent);
-    margin-bottom: 1rem;
-}
-
-.service-card h3 {
-    color: var(--primary);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.service-card p {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text);
-}
+.gallery-item:nth-child(1) { transition-delay: 0s; }
+.gallery-item:nth-child(2) { transition-delay: 0.1s; }
+.gallery-item:nth-child(3) { transition-delay: 0.2s; }
+.gallery-item:nth-child(4) { transition-delay: 0.3s; }
 
 /* Galería */
 .gallery-grid {
@@ -250,22 +242,6 @@ section {
     aspect-ratio: 4/3;
     min-height: 280px;
 }
-
-.gallery-item.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-.gallery-item.animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.gallery-item.animate-on-scroll:nth-child(1) { transition-delay: 0.2s; }
-.gallery-item.animate-on-scroll:nth-child(2) { transition-delay: 0.4s; }
-.gallery-item.animate-on-scroll:nth-child(3) { transition-delay: 0.6s; }
-.gallery-item.animate-on-scroll:nth-child(4) { transition-delay: 0.8s; }
 
 .gallery-item img {
     width: 100%;

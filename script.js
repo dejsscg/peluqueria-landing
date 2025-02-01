@@ -6,17 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const whatsappBtn = document.querySelector('.whatsapp-button');
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-    // Función para manejar las animaciones
-    const handleAnimations = () => {
-        const triggerBottom = window.innerHeight * 0.8;
-        
-        animatedElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            if (elementTop < triggerBottom) {
-                element.classList.add('visible');
+    // Detectar elementos para animar
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
         });
-    };
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -10% 0px'
+    });
+
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
 
     // Manejar menú móvil
     menuToggle?.addEventListener('click', () => {
@@ -85,9 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Inicializar animaciones
-    handleAnimations();
     window.addEventListener('scroll', () => {
-        requestAnimationFrame(handleAnimations);
         handleWhatsAppButtonVisibility();
     });
 });
