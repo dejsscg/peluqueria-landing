@@ -1,10 +1,10 @@
 /* Variables y reset */
 :root {
-    --primary-color: #EB5A3C;     /* Magenta fuerte */
-    --secondary-color: #DF9755;   /* Rosa suave */
-    --accent-color: #E7D283;      /* Amarillo dorado */
-    --text-color: #EDF4C2;
-    --light-bg: #FFF5F6;         /* Fondo rosa muy suave */
+    --primary-color: #F8B195;     /* Rosa pastel */
+    --secondary-color: #F67280;   /* Rosa coral suave */
+    --accent-color: #C06C84;      /* Rosa antiguo */
+    --text-color: #6C5B7B;        /* Morado suave */
+    --light-bg: #FFF5F6;          /* Fondo rosa muy suave */
     --background-color: #FFF5F6;
 }
 
@@ -49,61 +49,103 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .nav-links a {
     color: var(--text-color);
     text-decoration: none;
-    margin-left: 2rem;
-    transition: color 0.3s;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
     color: var(--primary-color);
 }
 
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.menu-toggle .close-icon {
+    display: none;
+}
+
+.nav-links.active + .menu-toggle .menu-icon {
+    display: none;
+}
+
+.nav-links.active + .menu-toggle .close-icon {
+    display: block;
+}
+
+/* Estilos responsive */
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        z-index: 1001;
+    }
+
     .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
         width: 100%;
-        background-color: #FFF;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transition: max-height 0.3s ease-in-out;
-        z-index: 999;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease;
+        z-index: 1000;
     }
 
     .nav-links.active {
-        display: flex;
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 1rem;
     }
 }
 
 /* Hero Section */
 .hero {
-    height: 100vh;
-    background: url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+    min-height: 100vh;
+    background-color: var(--light-bg);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
-}
-
-.hero-content {
     padding: 2rem;
 }
 
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
+.hero-content {
+    max-width: 800px;
 }
 
-.hero p {
-    font-size: 1.5rem;
+.hero-content h1,
+.hero-content p {
+    font-family: 'Dancing Script', cursive;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.hero-content p {
+    font-size: 2rem;
+    color: var(--text-color);
     margin-bottom: 2rem;
 }
 
@@ -394,22 +436,27 @@ section h2 {
     transform: translateY(0);
 }
 
-/* Estilos del menú hamburguesa */
-.menu-toggle {
-    background-color: #DF9755; /* Color que combina */
-    border-radius: 5px;
-    padding: 10px;
-}
-
-.menu-toggle .menu-icon,
-.menu-toggle .close-icon {
+/* Footer */
+footer {
+    background: var(--primary-color);
     color: white;
+    padding: 2rem;
+    text-align: center;
 }
 
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
+.social-links {
+    margin-bottom: 1rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
 }
 
 @media (max-width: 768px) {
@@ -445,27 +492,4 @@ section h2 {
         opacity: 1;
         visibility: visible;
     }
-}
-
-/* Footer */
-footer {
-    background: var(--primary-color);
-    color: white;
-    padding: 2rem;
-    text-align: center;
-}
-
-.social-links {
-    margin-bottom: 1rem;
-}
-
-.social-links a {
-    color: white;
-    font-size: 1.5rem;
-    margin: 0 0.5rem;
-    transition: color 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--accent-color);
 }

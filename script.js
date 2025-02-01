@@ -1,3 +1,26 @@
+// Funcionalidad del menú burger
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const menuIcon = document.querySelector('.menu-icon');
+    const closeIcon = document.querySelector('.close-icon');
+
+    menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        menuIcon.style.display = navLinks.classList.contains('active') ? 'none' : 'block';
+        closeIcon.style.display = navLinks.classList.contains('active') ? 'block' : 'none';
+    });
+
+    // Cerrar el menú al hacer clic en un enlace
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            menuIcon.style.display = 'block';
+            closeIcon.style.display = 'none';
+        });
+    });
+});
+
 // Smooth scrolling para los enlaces de navegación
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
