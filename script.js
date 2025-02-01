@@ -172,3 +172,27 @@ scrollTopButton.addEventListener('click', function() {
         behavior: 'smooth'
     });
 });
+
+// Animaciones de scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+    function handleScrollAnimations() {
+        const triggerBottom = window.innerHeight * 0.8;
+
+        animatedElements.forEach((element, index) => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < triggerBottom) {
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 100);
+            }
+        });
+    }
+
+    // Ejecutar una vez al cargar la página
+    handleScrollAnimations();
+
+    // Manejar el scroll
+    window.addEventListener('scroll', handleScrollAnimations);
+});
